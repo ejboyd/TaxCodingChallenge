@@ -1,0 +1,402 @@
+  [
+    {
+      "county": "Alamance",
+      "taxRate": "7.50%"
+    },
+    {
+      "county": "Alexander",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Alleghany",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Anson",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Ashe",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Avery",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Beaufort",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Bertie",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Bladen",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Brunswick",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Buncombe",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Burke",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Cabarrus",
+      "taxRate": "7.25%"
+    },
+    {
+      "county": "Caldwell",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Camden",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Carteret",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Caswell",
+      "taxRate": "7.50%"
+    },
+    {
+      "county": "Catawba",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Chatham",
+      "taxRate": "7.50%"
+    },
+    {
+      "county": "Cherokee",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Chowan",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Clay",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Cleveland",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Columbus",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Craven",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Cumberland",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Currituck",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Dare",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Davidson",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Davie",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Duplin",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Durham",
+      "taxRate": "7.50%"
+    },
+    {
+      "county": "Edgecombe",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Forsyth",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Franklin",
+      "taxRate": "7.25%"
+    },
+    {
+      "county": "Gaston",
+      "taxRate": "7.25%"
+    },
+    {
+      "county": "Gates",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Graham",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Granville",
+      "taxRate": "7.25%"
+    },
+    {
+      "county": "Greene",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Guilford",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Halifax",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Harnett",
+      "taxRate": "7.25%"
+    },
+    {
+      "county": "Haywood",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Henderson",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Hertford",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Hoke",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Hyde",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Iredell",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Jackson",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Johnston",
+      "taxRate": "7.25%"
+    },
+    {
+      "county": "Jones",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Lee",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Lenoir",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Lincoln",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Macon",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Madison",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Martin",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Mcdowell",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Mecklenburg",
+      "taxRate": "7.25%"
+    },
+    {
+      "county": "Mitchell",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Montgomery",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Moore",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Nash",
+      "taxRate": "7%"
+    },
+    {
+      "county": "New Hanover",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Northampton",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Onslow",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Orange",
+      "taxRate": "7.50%"
+    },
+    {
+      "county": "Pamlico",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Pasquotank",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Pender",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Perquimans",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Person",
+      "taxRate": "7.50%"
+    },
+    {
+      "county": "Pitt",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Polk",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Randolph",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Richmond",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Robeson",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Rockingham",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Rowan",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Rutherford",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Sampson",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Scotland",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Stanly",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Stokes",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Surry",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Swain",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Transylvania",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Tyrrell",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Union",
+      "taxRate": "7.25%"
+    },
+    {
+      "county": "Vance",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Wake",
+      "taxRate": "7.50%"
+    },
+    {
+      "county": "Warren",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Washington",
+      "taxRate": "6.75%"
+    },
+    {
+      "county": "Watauga",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Wayne",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Wilkes",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Wilson",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Yadkin",
+      "taxRate": "7%"
+    },
+    {
+      "county": "Yancey",
+      "taxRate": "7%"
+    }
+  ]
