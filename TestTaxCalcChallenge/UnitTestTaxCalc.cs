@@ -11,6 +11,7 @@ namespace TestTaxCalcChallenge
 
 
         [TestMethod]
+        //Test that rounding down works correctly to 2 decimal places
         public void TestMethod_RoundingInputDown()
         {
             TaxCalc taxCalc = new TaxCalc(test_Madison , (decimal)501.44499999);
@@ -18,28 +19,16 @@ namespace TestTaxCalcChallenge
         }
 
         [TestMethod]
+        //Test that rounding up works correctly to 2 decimal places
         public void TestMethod_RoundingInputUp()
         {
             TaxCalc taxCalc = new TaxCalc(test_Madison, (decimal)501.445000000);
             Assert.IsTrue(taxCalc.Subtotal == "$501.45");
         }
 
+       
         [TestMethod]
-        public void TestMethod_ParseTaxRateFail()
-        {
-            try
-            {
-                TaxCalc.TaxRateFloat("Test");
-                Assert.Fail();
-            }
-            catch (Exception ex)
-            {
-              if (ex.Message.Contains("Can not parse input as tax rate")) Assert.IsTrue(true);
-            }
-            
-        }
-        
-        [TestMethod]
+        //Test tax rate input with percent sign
         public void TestMethod_ParseTaxRatePercentSign()
         {
             decimal testValue = TaxCalc.TaxRateFloat("75.75%");
@@ -49,6 +38,7 @@ namespace TestTaxCalcChallenge
 
 
         [TestMethod]
+        //test tax rate input with space and percent
         public void TestMethod_ParseTaxRatePercentSignSpace()
         {
             decimal testValue = TaxCalc.TaxRateFloat("75.75 %");
@@ -58,6 +48,7 @@ namespace TestTaxCalcChallenge
 
 
         [TestMethod]
+        //tax rate input with out percent sign
         public void TestMethod_ParseTaxRateNoPercentSign()
         {
             decimal testValue = TaxCalc.TaxRateFloat(".7575");
@@ -66,6 +57,7 @@ namespace TestTaxCalcChallenge
         }
 
         [TestMethod]
+        //test the view of the tax rate in results with percent
         public void TestMethod_OutputTaxratePercent()
         {
             CountyTaxRate test_Percent = new CountyTaxRate() { CountyName = "Percent", TaxRate = "7%" };
@@ -74,14 +66,15 @@ namespace TestTaxCalcChallenge
         }
 
         [TestMethod]
+        //test the view of the tax rate with decimal and percent
         public void TestMethod_OutputTaxratePercentDecimal()
         {
-            CountyTaxRate test_Percent = new CountyTaxRate() { CountyName = "Percent", TaxRate = "7.00%" };
+            CountyTaxRate test_Percent = new CountyTaxRate() { CountyName = "PercentDecimal", TaxRate = "7.00%" };
             TaxCalc taxCalc = new TaxCalc(test_Percent, 501.50M);
             Assert.IsTrue(string.Equals(taxCalc.TaxRate, "7.00%"));
         }
 
-        [TestMethod]
+        [TestMethod] //test the view of the tax rate in results without percent
         public void TestMethod_OutputTaxrateNoPercent()
         {
             CountyTaxRate test_Percent = new CountyTaxRate() { CountyName = "NoPercent", TaxRate = ".07" };
