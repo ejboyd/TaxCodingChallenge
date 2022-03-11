@@ -1,3 +1,4 @@
+using CodingchallengeTax;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -13,71 +14,58 @@ namespace CodingChallengeTax.Controllers
         public TaxCalcController(ILogger<TaxCalcController> logger)
         {
             _logger = logger;
-            InitalizeTaxRates();
         }
 
-        //list of tax rate information by county
-        List<CountyTaxRate>? TaxRates { get; set; }
-
-        private void InitalizeTaxRates()
+        private bool ValidateCountyName(string countyName)
         {
-            //Read json array of county and tax rates
-            using (StreamReader r = new StreamReader(".\\Data\\taxRateNC.json"))
-            {
-                string json = r.ReadToEnd();
-                List<CountyTaxRate>? items = JsonConvert.DeserializeObject<List<CountyTaxRate>>(json);
-                if (items != null) { TaxRates = items; } else TaxRates = new List<CountyTaxRate>();
-            }
+            //check if empty
+            //could check that values are (A-Z)
+            return !string.IsNullOrWhiteSpace(countyName);
+        }
+
+        private bool ValidateSubTotal(string input, out decimal m_subtotal)
+        {
+            return decimal.TryParse(input, out m_subtotal);
 
         }
+
 
         [HttpGet(Name = "TaxCalc")]
         public JsonResult Get(string county, string subTotal)
         {
-            decimal validSubTotal = (decimal)0.0;
+            decimal validSubTotal;
 
-            //check input exists
-            if (string.IsNullOrWhiteSpace(county) || string.IsNullOrWhiteSpace(subTotal) || !decimal.TryParse(subTotal.Replace("$",""), out validSubTotal))
+            JsonResult result;
+            
+            if (ValidateSubTotal(subTotal, out validSubTotal) == false || ValidateCountyName(county) == false)
             {
-                var result = new JsonResult(new { error = "calculation requires North Carolina county name and sales subtotal" })
+                // validate didnt' work
+                result = new JsonResult(new { error = "Input not recognized as valid. Please check values and try again" })
                 {
                     StatusCode = (int)System.Net.HttpStatusCode.BadRequest
                 };
-                return result;
-            }
-
-            //check server data was initialized
-            if (TaxRates == null)
-            {
-                var result = new JsonResult(new { error = "could not initialize server" })
-                {
-                    StatusCode = (int)System.Net.HttpStatusCode.InternalServerError
-                };
-                return result;
             }
             else
             {
                 //Match county name to item(CountyTaxRate) in county tax rate data(TaxRates) ignoring case and white space
-                CountyTaxRate? selectedCounty = TaxRates.FirstOrDefault(taxRate => (string.Compare(taxRate.CountyName,county.Trim(), true) == 0));
+                CountyTaxRate? selectedCounty = DataManager.GetCountyTaxRate(county);
                 if (selectedCounty == null)
                 {
-                    string[] validNames = TaxRates.Select(x => x.CountyName).ToArray();
-
                     //couldnt find name in list of counties. bad county name
-                    var result = new JsonResult(new { error = "county name not found in North Carolina data", validCounties = validNames })
+                    result = new JsonResult(new { error = "County name not found in Data" })
                     {
-                        StatusCode = (int)System.Net.HttpStatusCode.BadRequest,
+                        StatusCode = (int)System.Net.HttpStatusCode.BadRequest
                     };
-                    return result;
                 }
                 else
                 {
-                    TaxCalc taxCalc = new TaxCalc(selectedCounty, validSubTotal); 
+                    TaxCalc taxCalc = new TaxCalc(selectedCounty, validSubTotal);
                     //everything should be correct here. return calculation
-                    return new JsonResult(new { county = taxCalc.CountyName, subTotal = taxCalc.Subtotal, tax = taxCalc.SalesTax, total = taxCalc.Total } );
+                    result = new JsonResult(new { county = taxCalc.CountyName, subTotal = taxCalc.Subtotal, tax = taxCalc.SalesTax, total = taxCalc.Total });
                 }
+
             }
-            
+            return result;
         }
     }
 }

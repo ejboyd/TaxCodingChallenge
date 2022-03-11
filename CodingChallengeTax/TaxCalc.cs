@@ -5,40 +5,65 @@ namespace CodingChallengeTax
     {
         private readonly CountyTaxRate ctr;
         private readonly decimal subtotal;
+        private decimal _taxrate;
 
         public TaxCalc(CountyTaxRate ctr, decimal subtotal)
         {
             this.ctr = ctr;
             this.subtotal = subtotal;
+            
+            //set valid true and then check data
+            this.ValidCalculation = true;
+            ValidateSubtotal();
+            ValidateTaxRate();
         }
 
-        private decimal salesTax => subtotal * TaxRateFloat(ctr.TaxRate);
+        public bool ValidCalculation;
 
-        public string TaxRate { get => TaxRateFloat(ctr.TaxRate).ToString("P2");  }
-
-        public static decimal TaxRateFloat(string taxRate)
+        private void ValidateTaxRate()
         {
             decimal val;
-
-            if (!decimal.TryParse(taxRate.Replace("%", ""), out val))
+            if (!decimal.TryParse(ctr.TaxRate.Replace("%", ""), out val))
             {
-                throw new Exception(string.Format("Can not parse input as tax rate {0}", taxRate));
+                _taxrate = 0.0M;
+                ValidCalculation = false;
             }
-
-            if (taxRate.Contains("%"))
+            else
+            if (ctr.TaxRate.Contains("%"))
             {
-                return val / 100;
+                _taxrate = val / 100;
             }
             else
             {
-                return val;
+                _taxrate = val;
             }
+            if (_taxrate < 0.0M) ValidCalculation = false;
+            return;
         }
+
+        private void ValidateSubtotal()
+        {
+            const decimal UPPER_BOUND = 100000000M; //setting upper limit to 100 million
+            const decimal LOWER_BOUND = 0.0M; //need positve value to calcuate sales tax
+
+            if (subtotal <= LOWER_BOUND || subtotal > UPPER_BOUND)
+            {
+                //value outside of bounds of program
+                ValidCalculation = false;
+            }
+            return;
+        }
+
+        private decimal salesTax => subtotal * _taxrate;
+
+        public string TaxRate { get => _taxrate.ToString("P2");  }
 
         public string CountyName => ctr.CountyName;
         public string Subtotal => subtotal.ToString("c2");
         public string SalesTax => salesTax.ToString("c2");
         public string Total => (subtotal + salesTax).ToString("c2");
+
+            
 
     }
 
