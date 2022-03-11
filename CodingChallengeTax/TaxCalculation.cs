@@ -1,35 +1,49 @@
 namespace CodingChallengeTax
 {
 
-    public class TaxCalc
+    public class TaxCalculation
     {
-        private readonly CountyTaxRate ctr;
+        private readonly CountyTaxRate _ctr = new CountyTaxRate();
         private readonly decimal subtotal;
         private decimal _taxrate;
 
-        public TaxCalc(CountyTaxRate ctr, decimal subtotal)
+        public TaxCalculation(CountyTaxRate? ctr, string str_subtotal)
         {
-            this.ctr = ctr;
-            this.subtotal = subtotal;
-            
-            //set valid true and then check data
             this.ValidCalculation = true;
+            if (ctr == null)
+            {
+                this.ValidCalculation = false;
+                _ctr = new CountyTaxRate() { CountyName = "Invalid", TaxRate = "0" };
+                ValidCalculation = false;
+            }
+            else
+            { 
+                _ctr = ctr;
+            }
+
+            if (!decimal.TryParse(str_subtotal, out subtotal))
+            {
+                ValidCalculation = false;
+            }
+            //set valid true and then check data
+            
             ValidateSubtotal();
             ValidateTaxRate();
         }
+
 
         public bool ValidCalculation;
 
         private void ValidateTaxRate()
         {
             decimal val;
-            if (!decimal.TryParse(ctr.TaxRate.Replace("%", ""), out val))
+            if (!decimal.TryParse(_ctr.TaxRate.Replace("%", ""), out val))
             {
                 _taxrate = 0.0M;
                 ValidCalculation = false;
             }
             else
-            if (ctr.TaxRate.Contains("%"))
+            if (_ctr.TaxRate.Contains("%"))
             {
                 _taxrate = val / 100;
             }
@@ -46,7 +60,7 @@ namespace CodingChallengeTax
             const decimal UPPER_BOUND = 100000000M; //setting upper limit to 100 million
             const decimal LOWER_BOUND = 0.0M; //need positve value to calcuate sales tax
 
-            if (subtotal <= LOWER_BOUND || subtotal > UPPER_BOUND)
+            if (subtotal < LOWER_BOUND || subtotal > UPPER_BOUND)
             {
                 //value outside of bounds of program
                 ValidCalculation = false;
@@ -58,7 +72,7 @@ namespace CodingChallengeTax
 
         public string TaxRate { get => _taxrate.ToString("P2");  }
 
-        public string CountyName => ctr.CountyName;
+        public string CountyName => _ctr.CountyName;
         public string Subtotal => subtotal.ToString("c2");
         public string SalesTax => salesTax.ToString("c2");
         public string Total => (subtotal + salesTax).ToString("c2");

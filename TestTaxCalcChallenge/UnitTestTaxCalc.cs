@@ -15,7 +15,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_RoundingInputDown()
         {
             CountyTaxRate test_Madison = new CountyTaxRate() { CountyName = "MadisonTest", TaxRate = "7%" };
-            TaxCalc taxCalc = new TaxCalc(test_Madison , (decimal)501.44499999);
+            TaxCalculation taxCalc = new TaxCalculation(test_Madison , "501.44499999");
             Assert.IsTrue(string.Equals(taxCalc.Subtotal, "$501.44"));
         }
 
@@ -24,7 +24,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_RoundingInputUp()
         {
             CountyTaxRate test_Madison = new CountyTaxRate() { CountyName = "MadisonTest", TaxRate = "7%" };
-            TaxCalc taxCalc = new TaxCalc(test_Madison, (decimal)501.445000000);
+            TaxCalculation taxCalc = new TaxCalculation(test_Madison, "501.445000000");
             Assert.IsTrue(string.Equals(taxCalc.Subtotal,"$501.45"));
         }
 
@@ -34,7 +34,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_ParseTaxRatePercentSign()
         {
             CountyTaxRate test_Madison = new CountyTaxRate() { CountyName = "MadisonTest", TaxRate = "75.75%" };
-            TaxCalc taxCalc = new TaxCalc(test_Madison, 501.50M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Madison, "501.50");
             Assert.IsTrue(string.Equals(taxCalc.TaxRate, "75.75%"));
         }
 
@@ -44,7 +44,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_ParseTaxRatePercentSignSpace()
         {
             CountyTaxRate test_Madison = new CountyTaxRate() { CountyName = "MadisonTest", TaxRate = "75.75 %" };
-            TaxCalc taxCalc = new TaxCalc(test_Madison, 501.50M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Madison, "501.50");
             Assert.IsTrue(string.Equals(taxCalc.TaxRate, "75.75%"));
         }
 
@@ -54,7 +54,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_ParseTaxRateNoPercentSign()
         {
             CountyTaxRate test_Madison = new CountyTaxRate() { CountyName = "MadisonTest", TaxRate = ".7575" };
-            TaxCalc taxCalc = new TaxCalc(test_Madison, 501.50M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Madison, "501.50");
             Assert.IsTrue(string.Equals(taxCalc.TaxRate,"75.75%"));
         }
 
@@ -63,7 +63,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_OutputTaxratePercent()
         {
             CountyTaxRate test_Percent = new CountyTaxRate() { CountyName = "Percent", TaxRate = "7%" };
-            TaxCalc taxCalc = new TaxCalc(test_Percent, 501.50M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Percent, "501.50");
             Assert.IsTrue(string.Equals(taxCalc.TaxRate, "7.00%"));
         }
 
@@ -72,7 +72,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_OutputTaxratePercentDecimal()
         {
             CountyTaxRate test_Percent = new CountyTaxRate() { CountyName = "PercentDecimal", TaxRate = "7.00%" };
-            TaxCalc taxCalc = new TaxCalc(test_Percent, 501.50M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Percent, "501.50");
             Assert.IsTrue(string.Equals(taxCalc.TaxRate, "7.00%"));
         }
 
@@ -80,7 +80,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_OutputTaxrateNoPercent()
         {
             CountyTaxRate test_Percent = new CountyTaxRate() { CountyName = "NoPercent", TaxRate = ".07" };
-            TaxCalc taxCalc = new TaxCalc(test_Percent, 501.50M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Percent, "501.50");
             Assert.IsTrue(string.Equals(taxCalc.TaxRate,"7.00%"));
         }
        
@@ -88,7 +88,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_OutputTotal()
         {
             CountyTaxRate test_Total = new CountyTaxRate() { CountyName = "TotalTest", TaxRate = ".07" };
-            TaxCalc taxCalc = new TaxCalc(test_Total, 5.0M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Total, "5.0");
             Assert.IsTrue(string.Equals(taxCalc.Total, "$5.35"));
         }
 
@@ -96,7 +96,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_OutputTax()
         {
             CountyTaxRate test_Tax = new CountyTaxRate() { CountyName = "TotalTest", TaxRate = ".07" };
-            TaxCalc taxCalc = new TaxCalc(test_Tax, 5.0M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Tax, "5.0");
             Assert.IsTrue(string.Equals(taxCalc.SalesTax, "$0.35"));
         }
 
@@ -104,7 +104,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_InputNegative()
         {
             CountyTaxRate test_Tax = new CountyTaxRate() { CountyName = "TotalTest", TaxRate = ".07" };
-            TaxCalc taxCalc = new TaxCalc(test_Tax,-0.01M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Tax,"-0.01");
             Assert.IsTrue(!taxCalc.ValidCalculation);
         }
         
@@ -112,7 +112,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_InputOver()
         {
             CountyTaxRate test_Tax = new CountyTaxRate() { CountyName = "TotalTest", TaxRate = ".07" };
-            TaxCalc taxCalc = new TaxCalc(test_Tax, 100000000001.0M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Tax, "100000000001.00");
             Assert.IsTrue(!taxCalc.ValidCalculation);
         }
 
@@ -120,7 +120,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_TaxRateNegative()
         {
             CountyTaxRate test_Tax = new CountyTaxRate() { CountyName = "TotalTest", TaxRate = "-.07" };
-            TaxCalc taxCalc = new TaxCalc(test_Tax, 10.0M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Tax, "10.0");
             Assert.IsTrue(!taxCalc.ValidCalculation);
         }
 
@@ -128,7 +128,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_TaxRateZero()
         {
             CountyTaxRate test_Tax = new CountyTaxRate() { CountyName = "TotalTest", TaxRate = "0.0" };
-            TaxCalc taxCalc = new TaxCalc(test_Tax, 10.0M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Tax, "10.0");
             Assert.IsTrue(taxCalc.ValidCalculation);
         }
 
@@ -137,7 +137,7 @@ namespace TestTaxCalcChallenge
         public void TestMethod_TaxRatePostive()
         {
             CountyTaxRate test_Tax = new CountyTaxRate() { CountyName = "TotalTest", TaxRate = ".07" };
-            TaxCalc taxCalc = new TaxCalc(test_Tax, 10.0M);
+            TaxCalculation taxCalc = new TaxCalculation(test_Tax, "10.0");
             Assert.IsTrue(taxCalc.ValidCalculation);
         }
 

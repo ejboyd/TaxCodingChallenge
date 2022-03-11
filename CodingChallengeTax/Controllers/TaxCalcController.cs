@@ -33,37 +33,23 @@ namespace CodingChallengeTax.Controllers
         [HttpGet(Name = "TaxCalc")]
         public JsonResult Get(string county, string subTotal)
         {
-            decimal validSubTotal;
-
             JsonResult result;
             
-            if (ValidateSubTotal(subTotal, out validSubTotal) == false || ValidateCountyName(county) == false)
+            //Match county name to item(CountyTaxRate) in county tax rate data(TaxRates) ignoring case and white space
+            CountyTaxRate? selectedCounty = DataManager.GetCountyTaxRate(county);
+            
+            TaxCalculation taxCalc = new TaxCalculation(selectedCounty, subTotal);
+            //everything should be correct here. return calculation
+            if (taxCalc.ValidCalculation)
             {
-                // validate didnt' work
-                result = new JsonResult(new { error = "Input not recognized as valid. Please check values and try again" })
-                {
-                    StatusCode = (int)System.Net.HttpStatusCode.BadRequest
-                };
+                result = new JsonResult(new { county = taxCalc.CountyName, subTotal = taxCalc.Subtotal, tax = taxCalc.SalesTax, total = taxCalc.Total });
             }
             else
             {
-                //Match county name to item(CountyTaxRate) in county tax rate data(TaxRates) ignoring case and white space
-                CountyTaxRate? selectedCounty = DataManager.GetCountyTaxRate(county);
-                if (selectedCounty == null)
+                result = new JsonResult(new { error = "Could not validate the input. Please check and try again." })
                 {
-                    //couldnt find name in list of counties. bad county name
-                    result = new JsonResult(new { error = "County name not found in Data" })
-                    {
-                        StatusCode = (int)System.Net.HttpStatusCode.BadRequest
-                    };
-                }
-                else
-                {
-                    TaxCalc taxCalc = new TaxCalc(selectedCounty, validSubTotal);
-                    //everything should be correct here. return calculation
-                    result = new JsonResult(new { county = taxCalc.CountyName, subTotal = taxCalc.Subtotal, tax = taxCalc.SalesTax, total = taxCalc.Total });
-                }
-
+                    StatusCode = (int)System.Net.HttpStatusCode.BadRequest
+                };
             }
             return result;
         }
